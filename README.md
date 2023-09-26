@@ -1,2 +1,2 @@
 # AlgDat
-Algorithms and Datastructures
+Algorithms and Data structures
