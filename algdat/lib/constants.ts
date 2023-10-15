@@ -100,5 +100,272 @@ export const Algorithms = [
         dataStructure: "Hash Table",
         returns: "Nothing, but deletes element at key x at table T and sets it to NIL",
         description: "Chained-Hash-Delete is a simple algorithm that deletes an element from the hash table using chaining.",
-    },    
-]
+    },
+    {
+        function: "MULTIPOPS(S, k)",
+        dataStructure: "Stack",
+        returns: "The top k elements of stack S, if S contains at least k elements",
+        description: "MULTIPOPS is a simple algorithm that removes the top k elements from the stack.",
+    },
+    {
+        function: "TABLE-INSERT(T, x)",
+        dataStructure: "Dynamic Tables",
+        returns: "Nothing, but inserts element x into table T",
+        description: "TABLE-INSERT is a simple algorithm that inserts an element into the dynamic table. If the table is full, it will be resized.",
+    },
+    {
+        function: "BISECT(A, p, r, v)",
+        dataStructure: "Array",
+        returns: "The index of v in array A, if it exists",
+        description: "BISECT is a simple algorithm that searches for an element in the array using binary search.",
+    },
+    {
+        function: "MERGE(A, p, q, r)",
+        dataStructure: "Array",
+        returns: "Nothing, but merges two subarrays of A",
+        description: "MERGE is a simple algorithm that merges two subarrays of the array.",
+    },
+    {
+        function: "MERGE-SORT(A, p, r)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "MERGE-SORT is a simple algorithm that sorts an array by recursively dividing it into two halves, sorting them, and merging them.",
+    },
+    {
+        function: "PARTITION(A, p, r)",
+        dataStructure: "Array",
+        returns: "The index of the pivot element",
+        description: "PARTITION is a simple algorithm that partitions the array into two subarrays around a pivot element.",
+    },
+    {
+        function: "QUICKSORT(A, p, r)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "QUICKSORT is a simple algorithm that sorts an array by recursively partitioning it around a pivot element.",
+    },
+    {
+        function: "RANDOMIZED-PARTITION(A, p, r)",
+        dataStructure: "Array",
+        returns: "The index of the pivot element",
+        description: "RANDOMIZED-PARTITION is a simple algorithm that partitions the array into two subarrays around a randomly chosen pivot element.",
+    },
+    {
+        function: "RANDOMIZED-QUICKSORT(A, p, r)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "RANDOMIZED-QUICKSORT is a simple algorithm that sorts an array by recursively partitioning it around a randomly chosen pivot element.",
+    },
+    {
+        function: "RANDOMIZED-SELECT(A, p, r, i)",
+        dataStructure: "Array",
+        returns: "The ith smallest element in array A",
+        description: "RANDOMIZED-SELECT is a simple algorithm that finds the ith smallest element in the array.",
+    },
+    {
+        function: "SELECT(A, p, r, i)",
+        dataStructure: "Array",
+        returns: "The ith smallest element in array A",
+        description: "SELECT is a simple algorithm that finds the ith smallest element in the array.",
+    },
+    {
+        function: "COUNTING-SORT(A, n, k)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "COUNTING-SORT is a simple algorithm that sorts an array by counting the number of elements that have each distinct key value.",
+    },
+    {
+        function: "RADIX-SORT(A, d)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "RADIX-SORT is a simple algorithm that sorts an array by sorting the elements by their digits.",
+    },
+    {
+        function: "BUCKET-SORT(A, n)",
+        dataStructure: "Array",
+        returns: "Sorted array A",
+        description: "BUCKET-SORT is a simple algorithm that sorts an array by distributing the elements into a number of buckets.",
+    },
+    {
+        function: "INORDER-WALK(x)",
+        dataStructure: "Tree",
+        returns: "The elements of the tree in sorted order",
+        description: "INORDER-WALK is a simple algorithm that prints the elements of the tree in sorted order.",
+    },
+    {
+        function: "SEARCH(x, k)",
+        dataStructure: "Tree",
+        returns: "A pointer to the element with key k, if it exists",
+        description: "SEARCH is a simple algorithm that searches for an element in the tree.",
+    },
+    {
+        function: "INSERT(T, x)",
+        dataStructure: "Tree",
+        returns: "Nothing, but inserts element x into tree T",
+        description: "INSERT is a simple algorithm that inserts an element into the tree.",
+    },
+    {
+        function: "MINIIMUM(T)",
+        dataStructure: "Tree",
+        returns: "The element with the smallest key in tree T",
+        description: "MINIMUM is a simple algorithm that finds the element with the smallest key in the tree.",
+    },
+    {
+        function: "SUCCESSOR(x)",
+        dataStructure: "Tree",
+        returns: "The element with the smallest key larger than x",
+        description: "SUCCESSOR is a simple algorithm that finds the element with the smallest key larger than x.",
+    },
+    {
+        function: "DELETE(T, z)",
+        dataStructure: "Tree",
+        returns: "Nothing, but deletes element z from tree T",
+        description: "DELETE is a simple algorithm that deletes an element from the tree.",
+    },
+    {
+        function: "MAX-HEAPIFY(A, i)",
+        dataStructure: "Heap",
+        returns: "Nothing, but maintains the max-heap property",
+        description: "MAX-HEAPIFY is a simple algorithm that maintains the max-heap property.",
+    },
+    {
+        function: "BUILD-MAX-HEAP(A, n)",
+        dataStructure: "Heap",
+        returns: "Nothing, but builds a max-heap from an unordered array",
+        description: "BUILD-MAX-HEAP is a simple algorithm that builds a max-heap from an unordered array.",
+    },
+    {
+        function: "HEAP-MAX(A)",
+        dataStructure: "Heap",
+        returns: "The element with the largest key in the heap",
+        description: "HEAP-MAX is a simple algorithm that finds the element with the largest key in the heap.",
+    },
+    {
+        function: "HEAP-EXTRACT-MAX(A)",
+        dataStructure: "Heap",
+        returns: "The element with the largest key in the heap",
+        description: "HEAP-EXTRACT-MAX is a simple algorithm that finds the element with the largest key in the heap and removes it.",
+    },
+    {
+        function: "HEAP-INCREASE-KEY(A, x, k)",
+        dataStructure: "Heap",
+        returns: "Nothing, but increases the key of element x to k",
+        description: "HEAP-INCREASE-KEY is a simple algorithm that increases the key of an element in the heap.",
+    },
+    {
+        function: "MAX-HEAP-INSERT(A, x, n)",
+        dataStructure: "Heap",
+        returns: "Nothing, but inserts element x into heap A",
+        description: "MAX-HEAP-INSERT is a simple algorithm that inserts an element into the heap.",
+    },
+    {
+        function: "HEAP-SORT(A, n)",
+        dataStructure: "Heap",
+        returns: "Sorted array A",
+        description: "HEAP-SORT is a simple algorithm that sorts an array by building a max-heap and repeatedly extracting the largest element.",
+    },
+    {
+        function: "HUFFMAN(C)",
+        dataStructure: "Tree",
+        returns: "A Huffman code for set C",
+        description: "HUFFMAN is a simple algorithm that generates a Huffman code for a set.",
+    },
+    {
+        function: "GALE-SHAPLEY(M, W)",
+        dataStructure: "Array",
+        returns: "A stable matching between M and W",
+        description: "GALE-SHAPLEY is a simple algorithm that generates a stable matching between two sets.",
+    },
+    {
+        function: "DFS(G)",
+        dataStructure: "Graph",
+        returns: "A depth-first search tree for graph G",
+        description: "DFS is a simple algorithm that generates a depth-first search tree for a graph.",
+    },
+    {
+        function: "DFS-VISIT(G, u)",
+        dataStructure: "Graph",
+        returns: "Nothing, but visits all vertices reachable from u",
+        description: "DFS-VISIT is a simple algorithm that visits all vertices reachable from a vertex.",
+    },
+    {
+        function: "BFS(G, s)",
+        dataStructure: "Graph",
+        returns: "A breadth-first search tree for graph G",
+        description: "BFS is a simple algorithm that generates a breadth-first search tree for a graph.",
+    },
+    {
+        function: "MAKE-SET(x)",
+        dataStructure: "Disjoint Set",
+        returns: "Nothing, but creates a new set whose only member is x",
+        description: "MAKE-SET is a simple algorithm that creates a new set.",
+    },
+    {
+        function: "UNION(x, y)",
+        dataStructure: "Disjoint Set",
+        returns: "Nothing, but merges the sets containing x and y",
+        description: "UNION is a simple algorithm that merges two sets.",
+    },
+    {
+        function: "LINK(x, y)",
+        dataStructure: "Disjoint Set",
+        returns: "Nothing, but merges the sets containing x and y",
+        description: "LINK is a simple algorithm that merges two sets.",
+    },
+    {
+        function: "FIND-SET(x)",
+        dataStructure: "Disjoint Set",
+        returns: "The representative of the set containing x",
+        description: "FIND-SET is a simple algorithm that finds the representative of a set.",
+    },
+    {
+        function: "SAME-COMPONENT(x, y)",
+        dataStructure: "Disjoint Set",
+        returns: "True if x and y are in the same set, false otherwise",
+        description: "SAME-COMPONENT is a simple algorithm that checks if two elements are in the same set.",
+    },
+    {
+        function: "GENERIC-MST(G, w)",
+        dataStructure: "Graph",
+        returns: "A minimum spanning tree for graph G",
+        description: "GENERIC-MST is a simple algorithm that generates a minimum spanning tree for a graph.",
+    },
+    {
+        function: "MST-KRUSKAL(G, w)",
+        dataStructure: "Graph",
+        returns: "A minimum spanning tree for graph G",
+        description: "MST-KRUSKAL is a simple algorithm that generates a minimum spanning tree for a graph using Kruskal's algorithm.",
+    },
+];
+
+export const DataStructures = [
+    {
+        name: "Array",
+    },
+    {
+        name: "Stack",
+    },
+    {
+        name: "Queue",
+    },
+    {
+        name: "Linked List",
+    },
+    {
+        name: "Hash Table",
+    },
+    {
+        name: "Dynamic Tables",
+    },
+    {
+        name: "Tree",
+    },
+    {
+        name: "Heap",
+    },
+    {
+        name: "Graph",
+    },
+    {
+        name: "Disjoint Set",
+    },
+];
