@@ -1,5 +1,5 @@
 import { title } from "@/components/primitives";
-import { DataStructures } from "@/lib/constants";
+import { AlgDat } from "@/lib/constants";
 import { DataStructureCard } from "@/components/DataStructureCard";
 
 export default function DataStructuresPage() {
@@ -7,8 +7,8 @@ export default function DataStructuresPage() {
 		<div>
 			<h1 className={title()}>Data Structures</h1>
 			<div>
-				{DataStructures.map((props, index) => (
-					<DataStructureCard key={index} dataStructureData={props} />
+				{AlgDat.map((data, index) => (
+					<DataStructureCard key={index} dataStructureData={{ name: data.dataStruct }} />
 				))}
 			</div>
 		</div>

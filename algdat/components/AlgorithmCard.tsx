@@ -1,30 +1,38 @@
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import {Divider} from "@nextui-org/divider";
+import { Divider } from "@nextui-org/divider";
+
+interface Algorithm {
+    function: string;
+    description: string;
+    returns: string;
+}
 
 interface AlgorithmCardProps {
     algorithmData: {
-        function: string;
-        dataStructure: string;
-        returns: string;
-        description: string;
+        dataStruct: string;
+        algorithms: Algorithm[];
     }
 }
 
 export const AlgorithmCard: React.FC<AlgorithmCardProps> = ({ algorithmData }) => {
     return (
-        <Card className="mt-4">
-            <CardHeader>
-                <p>
-                    {algorithmData.function} - {algorithmData.dataStructure}
-                </p>
-            </CardHeader>
-            <Divider orientation="horizontal" />
-            <CardBody>
-                <p>{algorithmData.description}</p>
-            </CardBody>
-            <CardFooter>
-                <p>{algorithmData.returns}</p>
-            </CardFooter>
-        </Card>
-    )
+        <>
+            {algorithmData.algorithms.map((algorithm, index) => (
+                <Card className="mt-4" key={index}>
+                    <CardHeader>
+                        <p>
+                            {algorithm.function} - {algorithmData.dataStruct}
+                        </p>
+                    </CardHeader>
+                    <Divider orientation="horizontal" />
+                    <CardBody>
+                        <p>{algorithm.description}</p>
+                    </CardBody>
+                    <CardFooter>
+                        <p>{algorithm.returns}</p>
+                    </CardFooter>
+                </Card>
+            ))}
+        </>
+    );
 }

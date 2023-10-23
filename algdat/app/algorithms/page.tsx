@@ -1,5 +1,5 @@
 import { title } from "@/components/primitives";
-import { Algorithms } from "@/lib/constants";
+import { AlgDat } from "@/lib/constants";
 import { AlgorithmCard } from "@/components/AlgorithmCard";
 
 export default function AlgorithmsPage() {
@@ -7,7 +7,7 @@ export default function AlgorithmsPage() {
 		<div>
 			<h1 className={title()}>Algorithms</h1>
 			<div>
-				{Algorithms.map((props, index) => (
+				{AlgDat.map((props, index) => (
 					<AlgorithmCard key={index} algorithmData={props} />
 				))}
 			</div>
