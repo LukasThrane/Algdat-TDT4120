@@ -3,6 +3,7 @@
         {
             "dataStruct": "Array",
             "id": "array",
+            "description": "An array is a data structure that stores a collection of elements, each identified by at least one array index or key. The simplest type of data structure is a linear array, also called one-dimensional array.",
             "algorithms": [
                 {
                     "function": "Insertion-Sort(A)",
@@ -79,6 +80,7 @@
         {
             "dataStruct": "Stack",
             "id": "stack",
+            "description": "A stack is a data structure that stores a collection of elements, with two principal operations: push, which adds an element to the collection, and pop, which removes the most recently added element that was not yet removed.",
             "algorithms": [
                 {
                     "function": "Stack-Empty(S)",
@@ -105,6 +107,7 @@
         {
             "dataStruct": "Queue",
             "id": "queue",
+            "description": "A queue is a data structure that stores a collection of elements, with two principal operations: enqueue, which adds an element to the collection, and dequeue, which removes the oldest element that was added.",
             "algorithms": [
                 {
                     "function": "Enqueue(Q, x)",
@@ -121,6 +124,7 @@
         {
             "dataStruct": "Linked List",
             "id": "linked-list",
+            "description": "A linked list is a data structure that represents a sequence of nodes. In a singly linked list, each node points to the next node in the linked list. In a doubly linked list, each node points to both the next node and the previous node.",
             "algorithms": [
                 {
                     "function": "List-Search(L, k)",
@@ -147,6 +151,7 @@
         {
             "dataStruct": "Hash Table",
             "id": "hash-table",
+            "description": "A hash table is a data structure that implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.",
             "algorithms": [
                 {
                     "function": "Direct-Address-Search(T, k)",
@@ -188,6 +193,7 @@
         {
             "dataStruct": "Dynamic Tables",
             "id": "dynamic-tables",
+            "description": "A dynamic table is a data structure that implements an array abstract data type, a structure that can map keys to values. A dynamic table uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.",
             "algorithms": [
                 {
                     "function": "TABLE-INSERT(T, x)",
@@ -199,6 +205,7 @@
         {
             "dataStruct": "Tree",
             "id": "tree",
+            "description": "A tree is a data structure that represents a hierarchical tree structure. A tree consists of nodes with a parent-child relationship. The topmost node in the tree is called the root. Each node can have an arbitrary number of child nodes.",
             "algorithms": [
                 {
                     "function": "INORDER-WALK(x)",
@@ -240,6 +247,7 @@
         {
             "dataStruct": "Heap",
             "id": "heap",
+            "description": "A heap is a data structure that represents a nearly complete binary tree. A heap is either a max-heap or a min-heap. In a max-heap, the max-heap property is that for every node i other than the root, A[PARENT(i)] ≥ A[i]. In a min-heap, the min-heap property is that for every node i other than the root, A[PARENT(i)] ≤ A[i].",
             "algorithms": [
                 {
                     "function": "MAX-HEAPIFY(A, i)",
@@ -281,6 +289,7 @@
         {
             "dataStruct": "Graph",
             "id": "graph",
+            "description": "A graph is a data structure that represents a set of objects where some pairs of objects are connected by links. The interconnected objects are represented by vertices, and the links that connect some pairs of vertices are called edges.",
             "algorithms": [
                 {
                     "function": "DFS(G)",
@@ -312,6 +321,7 @@
         {
             "dataStruct": "Disjoint Set",
             "id": "disjoint-set",
+            "description": "A disjoint set is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets. A union-find algorithm is an algorithm that performs two useful operations on such a data structure: Find: Determine which subset a particular element is in. This can be used for determining if two elements are in the same subset. Union: Join two subsets into a single subset.",
             "algorithms": [
                 {
                     "function": "MAKE-SET(x)",
