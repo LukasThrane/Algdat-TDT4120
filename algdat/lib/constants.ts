@@ -1,6 +1,7 @@
 export const AlgDat = [
     {
         dataStruct: "Array",
+        id: "array",
         algorithms: [
             {
                 function: "Insertion-Sort(A)",
@@ -76,6 +77,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Stack",
+        id: "stack",
         algorithms: [
             {
                 function: "Stack-Empty(S)",
@@ -101,6 +103,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Queue",
+        id: "queue",
         algorithms: [
             {
                 function: "Enqueue(Q, x)",
@@ -116,6 +119,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Linked List",
+        id: "linked-list",
         algorithms: [
             {
                 function: "List-Search(L, k)",
@@ -141,6 +145,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Hash Table",
+        id: "hash-table",
         algorithms: [
             {
                 function: "Direct-Address-Search(T, k)",
@@ -181,6 +186,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Dynamic Tables",
+        id: "dynamic-table",
         algorithms: [
             {
                 function: "TABLE-INSERT(T, x)",
@@ -191,6 +197,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Tree",
+        id: "tree",
         algorithms: [
             {
                 function: "INORDER-WALK(x)",
@@ -231,6 +238,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Heap",
+        id: "heap",
         algorithms: [
             {
                 function: "MAX-HEAPIFY(A, i)",
@@ -271,6 +279,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Graph",
+        id: "graph",
         algorithms: [
             {
                 function: "DFS(G)",
@@ -301,6 +310,7 @@ export const AlgDat = [
     },
     {
         dataStruct: "Disjoint Set",
+        id: "disjoint-set",
         algorithms: [
             {
                 function: "MAKE-SET(x)",
