@@ -34,9 +34,7 @@ export default function Algorithms() {
     setSelectedAlgorithms((prevSelectedAlgorithms) =>
       prevSelectedAlgorithms.includes(algorithm)
         ? prevSelectedAlgorithms.filter((alg) => alg !== algorithm)
-        : prevSelectedAlgorithms.length < 2
-        ? [...prevSelectedAlgorithms, algorithm]
-        : prevSelectedAlgorithms
+        : [...prevSelectedAlgorithms, algorithm]
     );
   };
 
@@ -158,7 +156,16 @@ export default function Algorithms() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-          {selectedAlgorithms.map((algorithm) => (
+          {selectedAlgorithms.slice(0, 2).map((algorithm) => (
+            <div key={algorithm} className="flex flex-col items-center">
+              {renderAlgorithm(algorithm)}
+            </div>
+          ))}
+        </div>
+      )}
+      {selectedAlgorithm !== "BinarySearch" && selectedAlgorithms.length > 2 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-8">
+          {selectedAlgorithms.slice(2).map((algorithm) => (
             <div key={algorithm} className="flex flex-col items-center">
               {renderAlgorithm(algorithm)}
             </div>
