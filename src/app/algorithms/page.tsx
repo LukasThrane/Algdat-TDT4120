@@ -3,9 +3,13 @@ import { useState } from "react";
 import BubbleSort from "@/components/algorithms/BubbleSort";
 import InsertionSort from "@/components/algorithms/InsertionSort";
 import MergeSort from "@/components/algorithms/MergeSort";
+import Quicksort from "@/components/algorithms/QuickSort";
+import BinarySearch from "@/components/algorithms/BinarySearch";
 
 export default function Algorithms() {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
+    null
+  );
   const [arrayLength, setArrayLength] = useState<number>(50);
 
   const renderAlgorithm = () => {
@@ -16,6 +20,10 @@ export default function Algorithms() {
         return <InsertionSort arrayLength={arrayLength} />;
       case "MergeSort":
         return <MergeSort arrayLength={arrayLength} />;
+      case "Quicksort":
+        return <Quicksort arrayLength={arrayLength} />;
+      case "BinarySearch":
+        return <BinarySearch arrayLength={arrayLength} />;
       default:
         return <p>Please select an algorithm to visualize.</p>;
     }
@@ -43,15 +51,29 @@ export default function Algorithms() {
         >
           Merge Sort
         </button>
+        <button
+          onClick={() => setSelectedAlgorithm("Quicksort")}
+          className="p-2 bg-purple-500 text-white"
+        >
+          Quicksort
+        </button>
+        <button
+          onClick={() => setSelectedAlgorithm("BinarySearch")}
+          className="p-2 bg-orange-500 text-white"
+        >
+          Binary Search
+        </button>
       </div>
-      <div className="flex space-x-4 mb-8">
-        <label htmlFor="arrayLength" className="text-lg">Array Length:</label>
+      <div className="mb-8">
+        <label htmlFor="arrayLength" className="mr-4">
+          Array Length:
+        </label>
         <input
-          type="number"
           id="arrayLength"
+          type="number"
           value={arrayLength}
-          onChange={(e) => setArrayLength(Number(e.target.value))}
-          className="p-2 border rounded"
+          onChange={(e) => setArrayLength(parseInt(e.target.value))}
+          className="p-2 border"
         />
       </div>
       {renderAlgorithm()}
