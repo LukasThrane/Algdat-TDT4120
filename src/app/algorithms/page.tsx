@@ -6,6 +6,7 @@ import { insertionSort } from "@/components/algorithms/sortingAlgorithms/inserti
 import { mergeSort } from "@/components/algorithms/sortingAlgorithms/mergeSort";
 import { quicksort } from "@/components/algorithms/sortingAlgorithms/quicksort";
 import { randomizedQuicksort } from "@/components/algorithms/sortingAlgorithms/randomizedQuicksort";
+import { countingSort } from "@/components/algorithms/sortingAlgorithms/countingSort";
 import BinarySearch from "@/components/algorithms/otherAlgorithms/BinarySearch";
 
 export default function Algorithms() {
@@ -20,6 +21,7 @@ export default function Algorithms() {
   const mergeSortRef = useRef<{ start: () => void }>(null);
   const quicksortRef = useRef<{ start: () => void }>(null);
   const quicksortRandomizedRef = useRef<{ start: () => void }>(null);
+  const countingSortRef = useRef<{ start: () => void }>(null);
 
   const generateArray = (arrayLength: number) => {
     const array = Array.from(
@@ -94,6 +96,15 @@ export default function Algorithms() {
             title="Randomized Quicksort"
           />
         );
+      case "CountingSort":
+        return (
+          <SortingVisualizer
+            ref={countingSortRef}
+            initialArray={initialArray}
+            sortAlgorithm={countingSort}
+            title="Counting Sort"
+          />
+        );
       default:
         return null;
     }
@@ -109,6 +120,7 @@ export default function Algorithms() {
     mergeSortRef.current?.start();
     quicksortRef.current?.start();
     quicksortRandomizedRef.current?.start();
+    countingSortRef.current?.start();
   };
 
   return (
@@ -164,6 +176,16 @@ export default function Algorithms() {
           }`}
         >
           Randomized Quicksort
+        </button>
+        <button
+          onClick={() => handleAlgorithmSelection("CountingSort")}
+          className={`p-2 text-white ${
+            selectedAlgorithms.includes("CountingSort")
+              ? "bg-orange-700"
+              : "bg-orange-500"
+          }`}
+        >
+          Counting Sort
         </button>
         <button
           onClick={handleBinarySearchSelection}
