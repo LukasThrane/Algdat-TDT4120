@@ -5,7 +5,7 @@ interface QuicksortRandomizedProps {
   initialArray: number[];
 }
 
-const QuickSortRandomized: React.FC<QuicksortRandomizedProps> = ({
+const QuicksortRandomized: React.FC<QuicksortRandomizedProps> = ({
   initialArray,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -107,4 +107,4 @@ const QuickSortRandomized: React.FC<QuicksortRandomizedProps> = ({
   );
 };
 
-export default QuickSortRandomized;
+export default QuicksortRandomized;
