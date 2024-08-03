@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 
 interface BinarySearchProps {
-  arrayLength: number;
+  initialArray: number[];
 }
 
-const BinarySearch: React.FC<BinarySearchProps> = ({ arrayLength }) => {
+const BinarySearch: React.FC<BinarySearchProps> = ({ initialArray }) => {
   const [array, setArray] = useState<number[]>([]);
   const [target, setTarget] = useState<number | "">("");
   const [result, setResult] = useState<number | null>(null);
@@ -14,26 +14,27 @@ const BinarySearch: React.FC<BinarySearchProps> = ({ arrayLength }) => {
   const [mid, setMid] = useState<number | null>(null);
 
   useEffect(() => {
-    generateArray();
-  }, [arrayLength]);
-
-  const generateArray = () => {
-    const array = Array.from({ length: arrayLength }, () => Math.floor(Math.random() * 100)).sort((a, b) => a - b);
-    setArray(array);
+    const sortedArray = [...initialArray].sort((a, b) => a - b);
+    setArray(sortedArray);
     setResult(null);
     setLeft(null);
     setRight(null);
     setMid(null);
-  };
+  }, [initialArray]);
 
-  const binarySearchStep = async (arr: number[], target: number, left: number, right: number) => {
+  const binarySearchStep = async (
+    arr: number[],
+    target: number,
+    left: number,
+    right: number
+  ) => {
     if (left <= right) {
       const mid = Math.floor((left + right) / 2);
       setLeft(left);
       setRight(right);
       setMid(mid);
 
-      await new Promise(resolve => setTimeout(resolve, 500)); // Add delay to visualize the steps
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       if (arr[mid] === target) {
         setResult(mid);
@@ -58,7 +59,6 @@ const BinarySearch: React.FC<BinarySearchProps> = ({ arrayLength }) => {
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <h1>Binary Search Visualization</h1>
-      <button onClick={generateArray} className="p-2 bg-blue-500 text-white mb-4">Generate New Array</button>
       <input
         type="number"
         value={target}
@@ -66,28 +66,45 @@ const BinarySearch: React.FC<BinarySearchProps> = ({ arrayLength }) => {
         className="p-2 border mb-4"
         placeholder="Enter target value"
       />
-      <button onClick={handleSearch} className="p-2 bg-green-500 text-white mb-4">Search</button>
+      <button
+        onClick={handleSearch}
+        className="p-2 bg-green-500 text-white mb-4"
+      >
+        Search
+      </button>
       <div className="flex flex-wrap justify-center">
         {array.map((value, index) => (
           <div
             key={index}
             className={`flex items-center justify-center border ${
               result === index
-                ? 'bg-yellow-500'
+                ? "bg-yellow-500"
                 : index === mid
-                ? 'bg-red-500'
-                : left !== null && right !== null && index >= left && index <= right
-                ? 'bg-blue-300'
-                : 'bg-gray-200'
+                ? "bg-red-500"
+                : left !== null &&
+                  right !== null &&
+                  index >= left &&
+                  index <= right
+                ? "bg-blue-300"
+                : "bg-gray-200"
             }`}
-            style={{ width: "40px", height: "40px", margin: "2px", textAlign: "center" }}
+            style={{
+              width: "40px",
+              height: "40px",
+              margin: "2px",
+              textAlign: "center",
+            }}
           >
             {value}
           </div>
         ))}
       </div>
-      {result !== null && <p className="mt-4">Target found at index: {result}</p>}
-      {result === null && left === null && <p className="mt-4">Target not found</p>}
+      {result !== null && (
+        <p className="mt-4">Target found at index: {result}</p>
+      )}
+      {result === null && left === null && (
+        <p className="mt-4">Target not found</p>
+      )}
     </main>
   );
 };

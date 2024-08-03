@@ -34,7 +34,7 @@ export default function Algorithms() {
       case "Quicksort":
         return <Quicksort initialArray={initialArray} />;
       case "BinarySearch":
-        return <BinarySearch arrayLength={arrayLength} />;
+        return <BinarySearch initialArray={initialArray} />;
       default:
         return <p>Please select an algorithm to visualize.</p>;
     }
