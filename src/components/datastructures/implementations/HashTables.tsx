@@ -1,25 +1,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { HashTable } from "@/components/datastructures/classes/HashTable";
 
-interface HashNode {
-  key: number;
-  value: number;
-  next: HashNode | null;
-}
-
-const HashTable = () => {
+const HashTableComponent = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [table, setTable] = useState<(HashNode | null)[]>([]);
+  const [hashTable] = useState(new HashTable(10));
   const [key, setKey] = useState<number | "">("");
   const [value, setValue] = useState<number | "">("");
+  const [message, setMessage] = useState<string>("");
 
-  const TABLE_SIZE = 10;
-
-  const hashFunction = (key: number) => {
-    return key % TABLE_SIZE;
-  };
-
-  const drawTable = (table: (HashNode | null)[]) => {
+  const drawTable = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -32,18 +22,18 @@ const HashTable = () => {
     const yStart = 10;
     const ySpacing = 60;
 
-    table.forEach((node, index) => {
+    for (let i = 0; i < hashTable.size; i++) {
+      let current = hashTable.table[i];
       let x = xStart;
-      let y = yStart + index * ySpacing;
+      let y = yStart + i * ySpacing;
 
       // Draw hash table index box
       ctx.fillStyle = "grey";
       ctx.fillRect(x, y, boxWidth, boxHeight);
       ctx.fillStyle = "white";
-      ctx.fillText(index.toString(), x + 35, y + 30);
+      ctx.fillText(i.toString(), x + 35, y + 30);
 
       x += 90;
-      let current = node;
 
       // Draw linked nodes
       while (current) {
@@ -68,95 +58,100 @@ const HashTable = () => {
         x += 100;
         current = current.next;
       }
-    });
+    }
   };
 
   const handleInsert = () => {
-    if (key === "" || value === "") return;
-    const newTable = [...table];
-    const hashKey = hashFunction(key as number);
-    const newNode: HashNode = { key: key as number, value: value as number, next: newTable[hashKey] };
-    newTable[hashKey] = newNode;
-    setTable(newTable);
+    if (key === "" || value === "") {
+      setMessage("Please enter both key and value.");
+      return;
+    }
+    hashTable.insert(key as number, value as any);
     setKey("");
     setValue("");
-    drawTable(newTable);
+    drawTable();
+    setMessage("Inserted successfully.");
   };
 
   const handleSearch = () => {
-    if (key === "") return;
-    const hashKey = hashFunction(key as number);
-    let current = table[hashKey];
-    while (current) {
-      if (current.key === key) {
-        alert(`Found value: ${current.value}`);
-        return;
-      }
-      current = current.next;
+    if (key === "") {
+      setMessage("Please enter a key to search.");
+      return;
     }
-    alert("Key not found");
+    const result = hashTable.search(key as number);
+    if (result !== null) {
+      setMessage(`Found value: ${result}`);
+    } else {
+      setMessage("Key not found.");
+    }
   };
 
   const handleDelete = () => {
-    if (key === "") return;
-    const newTable = [...table];
-    const hashKey = hashFunction(key as number);
-    let current = newTable[hashKey];
-    if (!current) return;
-    if (current.key === key) {
-      newTable[hashKey] = current.next;
-    } else {
-      let prev = current;
-      current = current.next;
-      while (current) {
-        if (current.key === key) {
-          prev.next = current.next;
-          break;
-        }
-        prev = current;
-        current = current.next;
-      }
+    if (key === "") {
+      setMessage("Please enter a key to delete.");
+      return;
     }
-    setTable(newTable);
-    setKey("");
-    drawTable(newTable);
+    const result = hashTable.delete(key as number);
+    if (result) {
+      setMessage(`Key ${key} deleted.`);
+      setKey("");
+      setValue("");
+    } else {
+      setMessage("Key not found.");
+    }
+    drawTable();
   };
 
   useEffect(() => {
-    const initialTable: (HashNode | null)[] = new Array(TABLE_SIZE).fill(null);
-    setTable(initialTable);
-    drawTable(initialTable);
+    drawTable();
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <h1>Hash Table Visualization</h1>
-      <canvas ref={canvasRef} width={800} height={700} />
-      <div className="flex space-x-4 mt-4">
+    <main className="flex flex-col items-center p-8 space-y-4">
+      <h1 className="text-2xl font-bold mb-4">Hash Table Visualization</h1>
+      <canvas
+        ref={canvasRef}
+        width={800}
+        height={700}
+        className="border border-gray-300"
+      />
+      <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 mt-4">
         <input
           type="number"
+          placeholder="Key"
           value={key}
           onChange={(e) => setKey(parseInt(e.target.value))}
-          className="p-2 border"
+          className="p-2 border border-gray-300 rounded"
         />
         <input
           type="number"
+          placeholder="Value"
           value={value}
           onChange={(e) => setValue(parseInt(e.target.value))}
-          className="p-2 border"
+          className="p-2 border border-gray-300 rounded"
         />
-        <button onClick={handleInsert} className="p-2 bg-blue-500 text-white">
+        <button
+          onClick={handleInsert}
+          className="p-2 bg-blue-500 text-white rounded"
+        >
           Insert
         </button>
-        <button onClick={handleSearch} className="p-2 bg-yellow-500 text-white">
+        <button
+          onClick={handleSearch}
+          className="p-2 bg-yellow-500 text-white rounded"
+        >
           Search
         </button>
-        <button onClick={handleDelete} className="p-2 bg-red-500 text-white">
+        <button
+          onClick={handleDelete}
+          className="p-2 bg-red-500 text-white rounded"
+        >
           Delete
         </button>
       </div>
+      {message && <div className="mt-4 p-2 bg-gray-200 rounded">{message}</div>}
     </main>
   );
 };
 
-export default HashTable;
+export default HashTableComponent;
