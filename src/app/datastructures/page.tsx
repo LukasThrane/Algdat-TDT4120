@@ -1,19 +1,23 @@
 "use client";
 import { useState } from "react";
-import Stack from "@/components/datastructures/Stack";
-import Queue from "@/components/datastructures/Queue";
+import Stacks from "@/components/datastructures/Stacks";
+import Queues from "@/components/datastructures/Queues";
+import LinkedList from "@/components/datastructures/LinkedLists";
+import HashTable from "@/components/datastructures/HashTables";
 
 export default function DataStructures() {
-  const [selectedStructure, setSelectedStructure] = useState<string | null>(
-    null
-  );
+  const [selectedStructure, setSelectedStructure] = useState<string | null>(null);
 
   const renderStructure = () => {
     switch (selectedStructure) {
-      case "Stack":
-        return <Stack />;
-      case "Queue":
-        return <Queue />;
+      case "Stacks":
+        return <Stacks />;
+      case "Queues":
+        return <Queues />;
+      case "LinkedList":
+        return <LinkedList />;
+      case "HashTable":
+        return <HashTable />;
       default:
         return <p>Please select a data structure to visualize.</p>;
     }
@@ -24,16 +28,28 @@ export default function DataStructures() {
       <h1>Data Structures</h1>
       <div className="flex space-x-4 mb-8">
         <button
-          onClick={() => setSelectedStructure("Stack")}
+          onClick={() => setSelectedStructure("Stacks")}
           className="p-2 bg-blue-500 text-white"
         >
-          Stack
+          Stacks
         </button>
         <button
-          onClick={() => setSelectedStructure("Queue")}
+          onClick={() => setSelectedStructure("Queues")}
           className="p-2 bg-green-500 text-white"
         >
-          Queue
+          Queues
+        </button>
+        <button
+          onClick={() => setSelectedStructure("LinkedList")}
+          className="p-2 bg-purple-500 text-white"
+        >
+          Linked List
+        </button>
+        <button
+          onClick={() => setSelectedStructure("HashTable")}
+          className="p-2 bg-yellow-500 text-white"
+        >
+          Hash Table
         </button>
       </div>
       {renderStructure()}

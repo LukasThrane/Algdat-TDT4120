@@ -1,19 +1,24 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const BubbleSort = () => {
+interface BubbleSortProps {
+  arrayLength: number;
+}
+
+const BubbleSort: React.FC<BubbleSortProps> = ({ arrayLength }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>([]);
   const [isSorting, setIsSorting] = useState(false);
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
     const array = Array.from(
-      { length: 50 },
+      { length: arrayLength },
       () => Math.floor(Math.random() * 300) + 10
     );
     setArray(array);
     drawBars(array);
-  }, []);
+  }, [arrayLength]);
 
   const bubbleSort = async () => {
     setIsSorting(true);
@@ -23,6 +28,7 @@ const BubbleSort = () => {
     do {
       swapped = false;
       for (let i = 0; i < len - 1; i++) {
+        setSelectedIndexes([i, i + 1]); // Highlight the indexes being compared
         if (arr[i] > arr[i + 1]) {
           [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
           swapped = true;
@@ -31,6 +37,7 @@ const BubbleSort = () => {
         }
       }
     } while (swapped);
+    setSelectedIndexes([]); // Clear the highlighted indexes
     setIsSorting(false);
   };
 
@@ -43,14 +50,14 @@ const BubbleSort = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const width = canvas.width / arr.length;
     arr.forEach((height, index) => {
-      ctx.fillStyle = "blue";
+      ctx.fillStyle = selectedIndexes.includes(index) ? "red" : "blue";
       ctx.fillRect(index * width, canvas.height - height, width, height);
     });
   };
 
   useEffect(() => {
     drawBars(array);
-  }, [array]);
+  }, [array, selectedIndexes]);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">

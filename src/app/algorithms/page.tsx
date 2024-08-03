@@ -5,18 +5,17 @@ import InsertionSort from "@/components/algorithms/InsertionSort";
 import MergeSort from "@/components/algorithms/MergeSort";
 
 export default function Algorithms() {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
-    null
-  );
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
+  const [arrayLength, setArrayLength] = useState<number>(50);
 
   const renderAlgorithm = () => {
     switch (selectedAlgorithm) {
       case "BubbleSort":
-        return <BubbleSort />;
+        return <BubbleSort arrayLength={arrayLength} />;
       case "InsertionSort":
-        return <InsertionSort />;
+        return <InsertionSort arrayLength={arrayLength} />;
       case "MergeSort":
-        return <MergeSort />;
+        return <MergeSort arrayLength={arrayLength} />;
       default:
         return <p>Please select an algorithm to visualize.</p>;
     }
@@ -44,6 +43,16 @@ export default function Algorithms() {
         >
           Merge Sort
         </button>
+      </div>
+      <div className="flex space-x-4 mb-8">
+        <label htmlFor="arrayLength" className="text-lg">Array Length:</label>
+        <input
+          type="number"
+          id="arrayLength"
+          value={arrayLength}
+          onChange={(e) => setArrayLength(Number(e.target.value))}
+          className="p-2 border rounded"
+        />
       </div>
       {renderAlgorithm()}
     </main>

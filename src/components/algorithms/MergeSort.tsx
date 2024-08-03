@@ -1,19 +1,24 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const MergeSort = () => {
+interface MergeSortProps {
+  arrayLength: number;
+}
+
+const MergeSort: React.FC<MergeSortProps> = ({ arrayLength }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>([]);
   const [isSorting, setIsSorting] = useState(false);
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
     const array = Array.from(
-      { length: 50 },
+      { length: arrayLength },
       () => Math.floor(Math.random() * 300) + 10
     );
     setArray(array);
     drawBars(array);
-  }, []);
+  }, [arrayLength]);
 
   const mergeSort = async (
     arr: number[],
@@ -32,21 +37,25 @@ const MergeSort = () => {
       i = 0,
       j = 0;
     while (i < left.length && j < right.length) {
+      setSelectedIndexes([k]); // Highlight the index being merged
       if (left[i] < right[j]) arr[k++] = left[i++];
       else arr[k++] = right[j++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }
     while (i < left.length) {
+      setSelectedIndexes([k]); // Highlight the index being merged
       arr[k++] = left[i++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }
     while (j < right.length) {
+      setSelectedIndexes([k]); // Highlight the index being merged
       arr[k++] = right[j++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }
+    setSelectedIndexes([]); // Clear the highlighted indexes
   };
 
   const startMergeSort = async () => {
@@ -65,14 +74,14 @@ const MergeSort = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const width = canvas.width / arr.length;
     arr.forEach((height, index) => {
-      ctx.fillStyle = "green";
+      ctx.fillStyle = selectedIndexes.includes(index) ? "red" : "green";
       ctx.fillRect(index * width, canvas.height - height, width, height);
     });
   };
 
   useEffect(() => {
     drawBars(array);
-  }, [array]);
+  }, [array, selectedIndexes]);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
