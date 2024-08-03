@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Stacks from "@/components/datastructures/Stacks";
-import Queues from "@/components/datastructures/Queues";
-import LinkedList from "@/components/datastructures/LinkedLists";
-import HashTable from "@/components/datastructures/HashTables";
+import Stacks from "@/components/datastructures/implementations/Stacks";
+import Queues from "@/components/datastructures/implementations/Queues";
+import LinkedList from "@/components/datastructures/implementations/LinkedLists";
+import HashTable from "@/components/datastructures/implementations/HashTables";
 
 export default function DataStructures() {
   const [selectedStructure, setSelectedStructure] = useState<string | null>(null);
