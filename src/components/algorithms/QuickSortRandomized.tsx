@@ -1,13 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 
 interface QuicksortRandomizedProps {
   initialArray: number[];
 }
 
-const QuicksortRandomized: React.FC<QuicksortRandomizedProps> = ({
-  initialArray,
-}) => {
+const QuicksortRandomized = forwardRef<{ start: () => void }, QuicksortRandomizedProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
@@ -17,6 +15,10 @@ const QuicksortRandomized: React.FC<QuicksortRandomizedProps> = ({
     setArray(initialArray);
     drawBars(initialArray);
   }, [initialArray]);
+
+  useImperativeHandle(ref, () => ({
+    start: () => startQuicksort(),
+  }));
 
   const quicksort = async (
     arr: number[],
@@ -93,18 +95,11 @@ const QuicksortRandomized: React.FC<QuicksortRandomizedProps> = ({
   }, [array, selectedIndexes]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <h1>Randomized Quicksort Visualization</h1>
+    <div className="flex flex-col items-center p-4 border">
+      <h1>Randomized Quicksort</h1>
       <canvas ref={canvasRef} width={500} height={300} />
-      <button
-        onClick={startQuicksort}
-        disabled={isSorting}
-        className="mt-4 p-2 bg-green-500 text-white"
-      >
-        {isSorting ? "Sorting..." : "Start Randomized Quicksort"}
-      </button>
-    </main>
+    </div>
   );
-};
+});
 
 export default QuicksortRandomized;

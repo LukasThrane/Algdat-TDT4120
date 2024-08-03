@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 
 interface BubbleSortProps {
   initialArray: number[];
 }
 
-const BubbleSort: React.FC<BubbleSortProps> = ({ initialArray }) => {
+const BubbleSort = forwardRef<{ start: () => void }, BubbleSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
@@ -16,25 +16,32 @@ const BubbleSort: React.FC<BubbleSortProps> = ({ initialArray }) => {
     drawBars(initialArray);
   }, [initialArray]);
 
-  const bubbleSort = async () => {
-    setIsSorting(true);
-    let arr = [...array];
-    let len = arr.length;
+  useImperativeHandle(ref, () => ({
+    start: () => startBubbleSort(),
+  }));
+
+  const bubbleSort = async (arr: number[]) => {
     let swapped;
     do {
       swapped = false;
-      for (let i = 0; i < len - 1; i++) {
+      for (let i = 0; i < arr.length - 1; i++) {
         setSelectedIndexes([i, i + 1]);
         if (arr[i] > arr[i + 1]) {
           [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-          swapped = true;
           setArray([...arr]);
           await new Promise(requestAnimationFrame);
+          swapped = true;
         }
       }
     } while (swapped);
     setSelectedIndexes([]);
     setIsSorting(false);
+  };
+
+  const startBubbleSort = async () => {
+    setIsSorting(true);
+    let arr = [...array];
+    await bubbleSort(arr);
   };
 
   const drawBars = (arr: number[]) => {
@@ -56,18 +63,11 @@ const BubbleSort: React.FC<BubbleSortProps> = ({ initialArray }) => {
   }, [array, selectedIndexes]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <div className="flex flex-col items-center p-4 border">
       <h1>Bubble Sort</h1>
       <canvas ref={canvasRef} width={500} height={300} />
-      <button
-        onClick={bubbleSort}
-        disabled={isSorting}
-        className="mt-4 p-2 bg-blue-500 text-white"
-      >
-        {isSorting ? "Sorting..." : "Start Bubble Sort"}
-      </button>
-    </main>
+    </div>
   );
-};
+});
 
 export default BubbleSort;

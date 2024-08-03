@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BubbleSort from "@/components/algorithms/BubbleSort";
 import InsertionSort from "@/components/algorithms/InsertionSort";
 import MergeSort from "@/components/algorithms/MergeSort";
@@ -12,6 +12,11 @@ export default function Algorithms() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
   const [arrayLength, setArrayLength] = useState<number>(50);
   const [initialArray, setInitialArray] = useState<number[]>([]);
+  const bubbleSortRef = useRef<{ start: () => void }>(null);
+  const insertionSortRef = useRef<{ start: () => void }>(null);
+  const mergeSortRef = useRef<{ start: () => void }>(null);
+  const quicksortRef = useRef<{ start: () => void }>(null);
+  const quicksortRandomizedRef = useRef<{ start: () => void }>(null);
 
   const generateArray = (arrayLength: number) => {
     const array = Array.from(
@@ -44,15 +49,15 @@ export default function Algorithms() {
   const renderAlgorithm = (algorithm: string) => {
     switch (algorithm) {
       case "BubbleSort":
-        return <BubbleSort initialArray={initialArray} />;
+        return <BubbleSort ref={bubbleSortRef} initialArray={initialArray} />;
       case "InsertionSort":
-        return <InsertionSort initialArray={initialArray} />;
+        return <InsertionSort ref={insertionSortRef} initialArray={initialArray} />;
       case "MergeSort":
-        return <MergeSort initialArray={initialArray} />;
+        return <MergeSort ref={mergeSortRef} initialArray={initialArray} />;
       case "Quicksort":
-        return <Quicksort initialArray={initialArray} />;
+        return <Quicksort ref={quicksortRef} initialArray={initialArray} />;
       case "QuicksortRandomized":
-        return <QuicksortRandomized initialArray={initialArray} />;
+        return <QuicksortRandomized ref={quicksortRandomizedRef} initialArray={initialArray} />;
       default:
         return null;
     }
@@ -60,6 +65,14 @@ export default function Algorithms() {
 
   const renderBinarySearch = () => {
     return <BinarySearch initialArray={initialArray} />;
+  };
+
+  const startAllSelectedAlgorithms = () => {
+    bubbleSortRef.current?.start();
+    insertionSortRef.current?.start();
+    mergeSortRef.current?.start();
+    quicksortRef.current?.start();
+    quicksortRandomizedRef.current?.start();
   };
 
   return (
@@ -131,6 +144,12 @@ export default function Algorithms() {
           className="ml-4 p-2 bg-gray-500 text-white"
         >
           Generate Array
+        </button>
+        <button
+          onClick={startAllSelectedAlgorithms}
+          className="ml-4 p-2 bg-green-500 text-white"
+        >
+          Start All Selected Algorithms
         </button>
       </div>
       {selectedAlgorithm === "BinarySearch" ? (

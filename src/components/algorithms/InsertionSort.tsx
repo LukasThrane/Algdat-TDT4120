@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 
 interface InsertionSortProps {
   initialArray: number[];
 }
 
-const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
+const InsertionSort = forwardRef<{ start: () => void }, InsertionSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
@@ -16,10 +16,11 @@ const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
     drawBars(initialArray);
   }, [initialArray]);
 
-  const insertionSort = async (
-    arr: number[],
-    setBars: (arr: number[]) => void
-  ) => {
+  useImperativeHandle(ref, () => ({
+    start: () => startInsertionSort(),
+  }));
+
+  const insertionSort = async (arr: number[]) => {
     for (let i = 1; i < arr.length; i++) {
       let key = arr[i];
       let j = i - 1;
@@ -27,12 +28,12 @@ const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
         setSelectedIndexes([j, j + 1]);
         arr[j + 1] = arr[j];
         j = j - 1;
-        setBars([...arr]);
+        setArray([...arr]);
         await new Promise(requestAnimationFrame);
       }
       arr[j + 1] = key;
       setSelectedIndexes([]);
-      setBars([...arr]);
+      setArray([...arr]);
       await new Promise(requestAnimationFrame);
     }
   };
@@ -40,7 +41,7 @@ const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
   const startInsertionSort = async () => {
     setIsSorting(true);
     let arr = [...array];
-    await insertionSort(arr, setArray);
+    await insertionSort(arr);
     setIsSorting(false);
   };
 
@@ -63,18 +64,11 @@ const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
   }, [array, selectedIndexes]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <div className="flex flex-col items-center p-4 border">
       <h1>Insertion Sort</h1>
       <canvas ref={canvasRef} width={500} height={300} />
-      <button
-        onClick={startInsertionSort}
-        disabled={isSorting}
-        className="mt-4 p-2 bg-blue-500 text-white"
-      >
-        {isSorting ? "Sorting..." : "Start Insertion Sort"}
-      </button>
-    </main>
+    </div>
   );
-};
+});
 
 export default InsertionSort;

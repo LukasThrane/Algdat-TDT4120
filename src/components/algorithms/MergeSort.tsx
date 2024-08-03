@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 
 interface MergeSortProps {
   initialArray: number[];
 }
 
-const MergeSort: React.FC<MergeSortProps> = ({ initialArray }) => {
+const MergeSort = forwardRef<{ start: () => void }, MergeSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
@@ -15,6 +15,10 @@ const MergeSort: React.FC<MergeSortProps> = ({ initialArray }) => {
     setArray(initialArray);
     drawBars(initialArray);
   }, [initialArray]);
+
+  useImperativeHandle(ref, () => ({
+    start: () => startMergeSort(),
+  }));
 
   const mergeSort = async (
     arr: number[],
@@ -46,12 +50,12 @@ const MergeSort: React.FC<MergeSortProps> = ({ initialArray }) => {
       await new Promise(requestAnimationFrame);
     }
     while (j < right.length) {
-      setSelectedIndexes([k]); // Highlight the index being merged
+      setSelectedIndexes([k]);
       arr[k++] = right[j++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }
-    setSelectedIndexes([]); // Clear the highlighted indexes
+    setSelectedIndexes([]);
   };
 
   const startMergeSort = async () => {
@@ -80,18 +84,11 @@ const MergeSort: React.FC<MergeSortProps> = ({ initialArray }) => {
   }, [array, selectedIndexes]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <div className="flex flex-col items-center p-4 border">
       <h1>Merge Sort</h1>
       <canvas ref={canvasRef} width={500} height={300} />
-      <button
-        onClick={startMergeSort}
-        disabled={isSorting}
-        className="mt-4 p-2 bg-green-500 text-white"
-      >
-        {isSorting ? "Sorting..." : "Start Merge Sort"}
-      </button>
-    </main>
+    </div>
   );
-};
+});
 
 export default MergeSort;
