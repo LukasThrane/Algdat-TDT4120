@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import BubbleSort from "@/components/algorithms/BubbleSort";
-import InsertionSort from "@/components/algorithms/InsertionSort";
-import MergeSort from "@/components/algorithms/MergeSort";
-import Quicksort from "@/components/algorithms/Quicksort";
-import QuicksortRandomized from "@/components/algorithms/QuicksortRandomized";
-import BinarySearch from "@/components/algorithms/BinarySearch";
+import BubbleSort from "@/components/algorithms/sortingAlgorithms/BubbleSort";
+import InsertionSort from "@/components/algorithms/sortingAlgorithms/InsertionSort";
+import MergeSort from "@/components/algorithms/sortingAlgorithms/MergeSort";
+import Quicksort from "@/components/algorithms/sortingAlgorithms/Quicksort";
+import QuicksortRandomized from "@/components/algorithms/sortingAlgorithms/QuicksortRandomized";
+import BinarySearch from "@/components/algorithms/otherAlgorithms/BinarySearch";
 
 export default function Algorithms() {
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>([]);
