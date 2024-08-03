@@ -2,37 +2,33 @@
 import { useEffect, useRef, useState } from "react";
 
 interface InsertionSortProps {
-  arrayLength: number;
+  initialArray: number[];
 }
 
-const InsertionSort: React.FC<InsertionSortProps> = ({ arrayLength }) => {
+const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [array, setArray] = useState<number[]>([]);
+  const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
-    const array = Array.from(
-      { length: arrayLength },
-      () => Math.floor(Math.random() * 300) + 10
-    );
-    setArray(array);
-    drawBars(array);
-  }, [arrayLength]);
+    setArray(initialArray);
+    drawBars(initialArray);
+  }, [initialArray]);
 
   const insertionSort = async (arr: number[], setBars: (arr: number[]) => void) => {
     for (let i = 1; i < arr.length; i++) {
       let key = arr[i];
       let j = i - 1;
       while (j >= 0 && arr[j] > key) {
-        setSelectedIndexes([j, j + 1]); // Highlight the indexes being compared
+        setSelectedIndexes([j, j + 1]);
         arr[j + 1] = arr[j];
         j = j - 1;
         setBars([...arr]);
         await new Promise(requestAnimationFrame);
       }
       arr[j + 1] = key;
-      setSelectedIndexes([]); // Clear the highlighted indexes
+      setSelectedIndexes([]);
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }

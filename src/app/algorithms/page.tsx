@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BubbleSort from "@/components/algorithms/BubbleSort";
 import InsertionSort from "@/components/algorithms/InsertionSort";
 import MergeSort from "@/components/algorithms/MergeSort";
@@ -7,21 +7,32 @@ import Quicksort from "@/components/algorithms/QuickSort";
 import BinarySearch from "@/components/algorithms/BinarySearch";
 
 export default function Algorithms() {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
-    null
-  );
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
   const [arrayLength, setArrayLength] = useState<number>(50);
+  const [initialArray, setInitialArray] = useState<number[]>([]);
+
+  const generateArray = (arrayLength: number) => {
+    const array = Array.from(
+      { length: arrayLength },
+      () => Math.floor(Math.random() * 300) + 10
+    );
+    setInitialArray(array);
+  };
+
+  useEffect(() => {
+    generateArray(arrayLength);
+  }, [arrayLength]);
 
   const renderAlgorithm = () => {
     switch (selectedAlgorithm) {
       case "BubbleSort":
-        return <BubbleSort arrayLength={arrayLength} />;
+        return <BubbleSort initialArray={initialArray} />;
       case "InsertionSort":
-        return <InsertionSort arrayLength={arrayLength} />;
+        return <InsertionSort initialArray={initialArray} />;
       case "MergeSort":
-        return <MergeSort arrayLength={arrayLength} />;
+        return <MergeSort initialArray={initialArray} />;
       case "Quicksort":
-        return <Quicksort arrayLength={arrayLength} />;
+        return <Quicksort initialArray={initialArray} />;
       case "BinarySearch":
         return <BinarySearch arrayLength={arrayLength} />;
       default:
@@ -64,7 +75,7 @@ export default function Algorithms() {
           Binary Search
         </button>
       </div>
-      <div className="mb-8">
+      <div className="mb-8 flex items-center">
         <label htmlFor="arrayLength" className="mr-4">
           Array Length:
         </label>
@@ -75,6 +86,12 @@ export default function Algorithms() {
           onChange={(e) => setArrayLength(parseInt(e.target.value))}
           className="p-2 border"
         />
+        <button
+          onClick={() => generateArray(arrayLength)}
+          className="ml-4 p-2 bg-gray-500 text-white"
+        >
+          Generate Array
+        </button>
       </div>
       {renderAlgorithm()}
     </main>

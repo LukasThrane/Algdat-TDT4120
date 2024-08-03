@@ -2,23 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 
 interface QuicksortProps {
-  arrayLength: number;
+  initialArray: number[];
 }
 
-const Quicksort: React.FC<QuicksortProps> = ({ arrayLength }) => {
+const Quicksort: React.FC<QuicksortProps> = ({ initialArray }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [array, setArray] = useState<number[]>([]);
+  const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
-    const array = Array.from(
-      { length: arrayLength },
-      () => Math.floor(Math.random() * 300) + 10
-    );
-    setArray(array);
-    drawBars(array);
-  }, [arrayLength]);
+    setArray(initialArray);
+    drawBars(initialArray);
+  }, [initialArray]);
 
   const quicksort = async (
     arr: number[],
@@ -43,7 +39,7 @@ const Quicksort: React.FC<QuicksortProps> = ({ arrayLength }) => {
     let i = left - 1;
 
     for (let j = left; j < right; j++) {
-      setSelectedIndexes([i, j]); // Highlight the indexes being compared
+      setSelectedIndexes([i, j]);
       if (arr[j] < pivot) {
         i++;
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -54,7 +50,7 @@ const Quicksort: React.FC<QuicksortProps> = ({ arrayLength }) => {
     [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
     setBars([...arr]);
     await new Promise(requestAnimationFrame);
-    setSelectedIndexes([]); // Clear the highlighted indexes
+    setSelectedIndexes([]);
     return i + 1;
   };
 

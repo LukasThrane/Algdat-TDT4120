@@ -2,23 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 
 interface MergeSortProps {
-  arrayLength: number;
+  initialArray: number[];
 }
 
-const MergeSort: React.FC<MergeSortProps> = ({ arrayLength }) => {
+const MergeSort: React.FC<MergeSortProps> = ({ initialArray }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [array, setArray] = useState<number[]>([]);
+  const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
-    const array = Array.from(
-      { length: arrayLength },
-      () => Math.floor(Math.random() * 300) + 10
-    );
-    setArray(array);
-    drawBars(array);
-  }, [arrayLength]);
+    setArray(initialArray);
+    drawBars(initialArray);
+  }, [initialArray]);
 
   const mergeSort = async (
     arr: number[],
@@ -37,14 +33,14 @@ const MergeSort: React.FC<MergeSortProps> = ({ arrayLength }) => {
       i = 0,
       j = 0;
     while (i < left.length && j < right.length) {
-      setSelectedIndexes([k]); // Highlight the index being merged
+      setSelectedIndexes([k]);
       if (left[i] < right[j]) arr[k++] = left[i++];
       else arr[k++] = right[j++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);
     }
     while (i < left.length) {
-      setSelectedIndexes([k]); // Highlight the index being merged
+      setSelectedIndexes([k]);
       arr[k++] = left[i++];
       setBars([...arr]);
       await new Promise(requestAnimationFrame);

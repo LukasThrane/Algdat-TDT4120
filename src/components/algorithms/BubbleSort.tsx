@@ -2,23 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 
 interface BubbleSortProps {
-  arrayLength: number;
+  initialArray: number[];
 }
 
-const BubbleSort: React.FC<BubbleSortProps> = ({ arrayLength }) => {
+const BubbleSort: React.FC<BubbleSortProps> = ({ initialArray }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [array, setArray] = useState<number[]>([]);
+  const [array, setArray] = useState<number[]>(initialArray);
   const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
-    const array = Array.from(
-      { length: arrayLength },
-      () => Math.floor(Math.random() * 300) + 10
-    );
-    setArray(array);
-    drawBars(array);
-  }, [arrayLength]);
+    setArray(initialArray);
+    drawBars(initialArray);
+  }, [initialArray]);
 
   const bubbleSort = async () => {
     setIsSorting(true);
@@ -28,7 +24,7 @@ const BubbleSort: React.FC<BubbleSortProps> = ({ arrayLength }) => {
     do {
       swapped = false;
       for (let i = 0; i < len - 1; i++) {
-        setSelectedIndexes([i, i + 1]); // Highlight the indexes being compared
+        setSelectedIndexes([i, i + 1]);
         if (arr[i] > arr[i + 1]) {
           [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
           swapped = true;
@@ -37,7 +33,7 @@ const BubbleSort: React.FC<BubbleSortProps> = ({ arrayLength }) => {
         }
       }
     } while (swapped);
-    setSelectedIndexes([]); // Clear the highlighted indexes
+    setSelectedIndexes([]);
     setIsSorting(false);
   };
 
