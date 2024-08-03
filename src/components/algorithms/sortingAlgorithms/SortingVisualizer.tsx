@@ -1,48 +1,45 @@
 "use client";
-import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
-interface InsertionSortProps {
+interface SortingVisualizerProps {
   initialArray: number[];
+  sortAlgorithm: (
+    arr: number[],
+    updateArray: (arr: number[]) => void,
+    updateIndexes: (indexes: number[]) => void
+  ) => Promise<void>;
+  title: string;
 }
 
-const InsertionSort = forwardRef<{ start: () => void }, InsertionSortProps>(({ initialArray }, ref) => {
+const SortingVisualizer = forwardRef<
+  { start: () => void },
+  SortingVisualizerProps
+>(({ initialArray, sortAlgorithm, title }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
     setArray(initialArray);
-    drawBars(initialArray);
+    drawBars(initialArray, []);
   }, [initialArray]);
 
   useImperativeHandle(ref, () => ({
-    start: () => startInsertionSort(),
+    start: () => startSorting(),
   }));
 
-  const insertionSort = async (arr: number[]) => {
-    for (let i = 1; i < arr.length; i++) {
-      let key = arr[i];
-      let j = i - 1;
-      while (j >= 0 && arr[j] > key) {
-        setSelectedIndexes([j, j + 1]);
-        arr[j + 1] = arr[j];
-        j = j - 1;
-        setArray([...arr]);
-        await new Promise(requestAnimationFrame);
-      }
-      arr[j + 1] = key;
-      setSelectedIndexes([]);
-      setArray([...arr]);
-      await new Promise(requestAnimationFrame);
-    }
-  };
-
-  const startInsertionSort = async () => {
+  const startSorting = async () => {
     let arr = [...array];
-    await insertionSort(arr);
+    await sortAlgorithm(arr, setArray, setSelectedIndexes);
   };
 
-  const drawBars = (arr: number[]) => {
+  const drawBars = (arr: number[], selectedIndexes: number[]) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -57,15 +54,15 @@ const InsertionSort = forwardRef<{ start: () => void }, InsertionSortProps>(({ i
   };
 
   useEffect(() => {
-    drawBars(array);
+    drawBars(array, selectedIndexes);
   }, [array, selectedIndexes]);
 
   return (
     <div className="flex flex-col items-center p-4 border">
-      <h1>Insertion Sort</h1>
+      <h1>{title}</h1>
       <canvas ref={canvasRef} width={500} height={300} />
     </div>
   );
 });
 
-export default InsertionSort;
+export default SortingVisualizer;

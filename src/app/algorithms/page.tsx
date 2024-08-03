@@ -1,15 +1,18 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import BubbleSort from "@/components/algorithms/sortingAlgorithms/BubbleSort";
-import InsertionSort from "@/components/algorithms/sortingAlgorithms/InsertionSort";
-import MergeSort from "@/components/algorithms/sortingAlgorithms/MergeSort";
-import Quicksort from "@/components/algorithms/sortingAlgorithms/Quicksort";
-import QuicksortRandomized from "@/components/algorithms/sortingAlgorithms/QuicksortRandomized";
+import SortingVisualizer from "@/components/algorithms/sortingAlgorithms/SortingVisualizer";
+import { bubbleSort } from "@/components/algorithms/sortingAlgorithms/bubbleSort";
+import { insertionSort } from "@/components/algorithms/sortingAlgorithms/insertionSort";
+import { mergeSort } from "@/components/algorithms/sortingAlgorithms/mergeSort";
+import { quicksort } from "@/components/algorithms/sortingAlgorithms/quicksort";
+import { randomizedQuicksort } from "@/components/algorithms/sortingAlgorithms/randomizedQuicksort";
 import BinarySearch from "@/components/algorithms/otherAlgorithms/BinarySearch";
 
 export default function Algorithms() {
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>([]);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
+    null
+  );
   const [arrayLength, setArrayLength] = useState<number>(50);
   const [initialArray, setInitialArray] = useState<number[]>([]);
   const bubbleSortRef = useRef<{ start: () => void }>(null);
@@ -47,15 +50,50 @@ export default function Algorithms() {
   const renderAlgorithm = (algorithm: string) => {
     switch (algorithm) {
       case "BubbleSort":
-        return <BubbleSort ref={bubbleSortRef} initialArray={initialArray} />;
+        return (
+          <SortingVisualizer
+            ref={bubbleSortRef}
+            initialArray={initialArray}
+            sortAlgorithm={bubbleSort}
+            title="Bubble Sort"
+          />
+        );
       case "InsertionSort":
-        return <InsertionSort ref={insertionSortRef} initialArray={initialArray} />;
+        return (
+          <SortingVisualizer
+            ref={insertionSortRef}
+            initialArray={initialArray}
+            sortAlgorithm={insertionSort}
+            title="Insertion Sort"
+          />
+        );
       case "MergeSort":
-        return <MergeSort ref={mergeSortRef} initialArray={initialArray} />;
+        return (
+          <SortingVisualizer
+            ref={mergeSortRef}
+            initialArray={initialArray}
+            sortAlgorithm={mergeSort}
+            title="Merge Sort"
+          />
+        );
       case "Quicksort":
-        return <Quicksort ref={quicksortRef} initialArray={initialArray} />;
+        return (
+          <SortingVisualizer
+            ref={quicksortRef}
+            initialArray={initialArray}
+            sortAlgorithm={quicksort}
+            title="Quicksort"
+          />
+        );
       case "QuicksortRandomized":
-        return <QuicksortRandomized ref={quicksortRandomizedRef} initialArray={initialArray} />;
+        return (
+          <SortingVisualizer
+            ref={quicksortRandomizedRef}
+            initialArray={initialArray}
+            sortAlgorithm={randomizedQuicksort}
+            title="Randomized Quicksort"
+          />
+        );
       default:
         return null;
     }
@@ -80,7 +118,9 @@ export default function Algorithms() {
         <button
           onClick={() => handleAlgorithmSelection("BubbleSort")}
           className={`p-2 text-white ${
-            selectedAlgorithms.includes("BubbleSort") ? "bg-blue-700" : "bg-blue-500"
+            selectedAlgorithms.includes("BubbleSort")
+              ? "bg-blue-700"
+              : "bg-blue-500"
           }`}
         >
           Bubble Sort
@@ -88,7 +128,9 @@ export default function Algorithms() {
         <button
           onClick={() => handleAlgorithmSelection("InsertionSort")}
           className={`p-2 text-white ${
-            selectedAlgorithms.includes("InsertionSort") ? "bg-red-700" : "bg-red-500"
+            selectedAlgorithms.includes("InsertionSort")
+              ? "bg-red-700"
+              : "bg-red-500"
           }`}
         >
           Insertion Sort
@@ -96,7 +138,9 @@ export default function Algorithms() {
         <button
           onClick={() => handleAlgorithmSelection("MergeSort")}
           className={`p-2 text-white ${
-            selectedAlgorithms.includes("MergeSort") ? "bg-green-700" : "bg-green-500"
+            selectedAlgorithms.includes("MergeSort")
+              ? "bg-green-700"
+              : "bg-green-500"
           }`}
         >
           Merge Sort
@@ -104,7 +148,9 @@ export default function Algorithms() {
         <button
           onClick={() => handleAlgorithmSelection("Quicksort")}
           className={`p-2 text-white ${
-            selectedAlgorithms.includes("Quicksort") ? "bg-purple-700" : "bg-purple-500"
+            selectedAlgorithms.includes("Quicksort")
+              ? "bg-purple-700"
+              : "bg-purple-500"
           }`}
         >
           Quicksort
@@ -112,7 +158,9 @@ export default function Algorithms() {
         <button
           onClick={() => handleAlgorithmSelection("QuicksortRandomized")}
           className={`p-2 text-white ${
-            selectedAlgorithms.includes("QuicksortRandomized") ? "bg-yellow-700" : "bg-yellow-500"
+            selectedAlgorithms.includes("QuicksortRandomized")
+              ? "bg-yellow-700"
+              : "bg-yellow-500"
           }`}
         >
           Randomized Quicksort
@@ -120,7 +168,9 @@ export default function Algorithms() {
         <button
           onClick={handleBinarySearchSelection}
           className={`p-2 text-white ${
-            selectedAlgorithm === "BinarySearch" ? "bg-orange-700" : "bg-orange-500"
+            selectedAlgorithm === "BinarySearch"
+              ? "bg-orange-700"
+              : "bg-orange-500"
           }`}
         >
           Binary Search
@@ -163,15 +213,16 @@ export default function Algorithms() {
           ))}
         </div>
       )}
-      {selectedAlgorithm !== "BinarySearch" && selectedAlgorithms.length > 2 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-8">
-          {selectedAlgorithms.slice(2).map((algorithm) => (
-            <div key={algorithm} className="flex flex-col items-center">
-              {renderAlgorithm(algorithm)}
-            </div>
-          ))}
-        </div>
-      )}
+      {selectedAlgorithm !== "BinarySearch" &&
+        selectedAlgorithms.length > 2 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-8">
+            {selectedAlgorithms.slice(2).map((algorithm) => (
+              <div key={algorithm} className="flex flex-col items-center">
+                {renderAlgorithm(algorithm)}
+              </div>
+            ))}
+          </div>
+        )}
     </main>
   );
 }
