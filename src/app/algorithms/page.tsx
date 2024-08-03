@@ -4,10 +4,13 @@ import BubbleSort from "@/components/algorithms/BubbleSort";
 import InsertionSort from "@/components/algorithms/InsertionSort";
 import MergeSort from "@/components/algorithms/MergeSort";
 import Quicksort from "@/components/algorithms/QuickSort";
+import QuickSortRandomized from "@/components/algorithms/QuickSortRandomized";
 import BinarySearch from "@/components/algorithms/BinarySearch";
 
 export default function Algorithms() {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
+    null
+  );
   const [arrayLength, setArrayLength] = useState<number>(50);
   const [initialArray, setInitialArray] = useState<number[]>([]);
 
@@ -33,6 +36,8 @@ export default function Algorithms() {
         return <MergeSort initialArray={initialArray} />;
       case "Quicksort":
         return <Quicksort initialArray={initialArray} />;
+      case "QuickSortRandomized":
+        return <QuickSortRandomized initialArray={initialArray} />;
       case "BinarySearch":
         return <BinarySearch initialArray={initialArray} />;
       default:
@@ -67,6 +72,12 @@ export default function Algorithms() {
           className="p-2 bg-purple-500 text-white"
         >
           Quicksort
+        </button>
+        <button
+          onClick={() => setSelectedAlgorithm("QuickSortRandomized")}
+          className="p-2 bg-yellow-500 text-white"
+        >
+          Randomized Quicksort
         </button>
         <button
           onClick={() => setSelectedAlgorithm("BinarySearch")}

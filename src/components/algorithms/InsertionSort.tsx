@@ -16,7 +16,10 @@ const InsertionSort: React.FC<InsertionSortProps> = ({ initialArray }) => {
     drawBars(initialArray);
   }, [initialArray]);
 
-  const insertionSort = async (arr: number[], setBars: (arr: number[]) => void) => {
+  const insertionSort = async (
+    arr: number[],
+    setBars: (arr: number[]) => void
+  ) => {
     for (let i = 1; i < arr.length; i++) {
       let key = arr[i];
       let j = i - 1;
