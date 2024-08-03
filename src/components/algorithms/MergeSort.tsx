@@ -8,7 +8,6 @@ interface MergeSortProps {
 const MergeSort = forwardRef<{ start: () => void }, MergeSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
-  const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -59,10 +58,8 @@ const MergeSort = forwardRef<{ start: () => void }, MergeSortProps>(({ initialAr
   };
 
   const startMergeSort = async () => {
-    setIsSorting(true);
     let arr = [...array];
     await mergeSort(arr, 0, arr.length, setArray);
-    setIsSorting(false);
   };
 
   const drawBars = (arr: number[]) => {

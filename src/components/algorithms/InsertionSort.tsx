@@ -8,7 +8,6 @@ interface InsertionSortProps {
 const InsertionSort = forwardRef<{ start: () => void }, InsertionSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
-  const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -39,10 +38,8 @@ const InsertionSort = forwardRef<{ start: () => void }, InsertionSortProps>(({ i
   };
 
   const startInsertionSort = async () => {
-    setIsSorting(true);
     let arr = [...array];
     await insertionSort(arr);
-    setIsSorting(false);
   };
 
   const drawBars = (arr: number[]) => {

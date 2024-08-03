@@ -8,7 +8,6 @@ interface BubbleSortProps {
 const BubbleSort = forwardRef<{ start: () => void }, BubbleSortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
-  const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -35,11 +34,9 @@ const BubbleSort = forwardRef<{ start: () => void }, BubbleSortProps>(({ initial
       }
     } while (swapped);
     setSelectedIndexes([]);
-    setIsSorting(false);
   };
 
   const startBubbleSort = async () => {
-    setIsSorting(true);
     let arr = [...array];
     await bubbleSort(arr);
   };

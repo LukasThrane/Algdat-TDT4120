@@ -8,7 +8,6 @@ interface QuicksortProps {
 const Quicksort = forwardRef<{ start: () => void }, QuicksortProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
-  const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -59,10 +58,8 @@ const Quicksort = forwardRef<{ start: () => void }, QuicksortProps>(({ initialAr
   };
 
   const startQuicksort = async () => {
-    setIsSorting(true);
     let arr = [...array];
     await quicksort(arr, 0, arr.length - 1, setArray);
-    setIsSorting(false);
   };
 
   const drawBars = (arr: number[]) => {

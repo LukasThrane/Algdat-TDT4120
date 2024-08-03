@@ -8,7 +8,6 @@ interface QuicksortRandomizedProps {
 const QuicksortRandomized = forwardRef<{ start: () => void }, QuicksortRandomizedProps>(({ initialArray }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [array, setArray] = useState<number[]>(initialArray);
-  const [isSorting, setIsSorting] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -70,10 +69,8 @@ const QuicksortRandomized = forwardRef<{ start: () => void }, QuicksortRandomize
   };
 
   const startQuicksort = async () => {
-    setIsSorting(true);
     let arr = [...array];
     await quicksort(arr, 0, arr.length - 1, setArray);
-    setIsSorting(false);
   };
 
   const drawBars = (arr: number[]) => {
