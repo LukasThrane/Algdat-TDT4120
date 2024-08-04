@@ -4,9 +4,12 @@ import Stacks from "@/components/datastructures/implementations/Stacks";
 import Queues from "@/components/datastructures/implementations/Queues";
 import LinkedList from "@/components/datastructures/implementations/LinkedLists";
 import HashTable from "@/components/datastructures/implementations/HashTables";
+import HeapComponent from "@/components/datastructures/implementations/Heaps";
 
 export default function DataStructures() {
-  const [selectedStructure, setSelectedStructure] = useState<string | null>(null);
+  const [selectedStructure, setSelectedStructure] = useState<string | null>(
+    null
+  );
 
   const renderStructure = () => {
     switch (selectedStructure) {
@@ -18,6 +21,8 @@ export default function DataStructures() {
         return <LinkedList />;
       case "HashTable":
         return <HashTable />;
+      case "Heap":
+        return <HeapComponent />;
       default:
         return <p>Please select a data structure to visualize.</p>;
     }
@@ -50,6 +55,12 @@ export default function DataStructures() {
           className="p-2 bg-yellow-500 text-white"
         >
           Hash Table
+        </button>
+        <button
+          onClick={() => setSelectedStructure("Heap")}
+          className="p-2 bg-orange-500 text-white"
+        >
+          Heap
         </button>
       </div>
       {renderStructure()}

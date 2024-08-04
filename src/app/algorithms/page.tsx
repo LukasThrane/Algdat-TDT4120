@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+
+// import sorting algorithms
 import SortingVisualizer from "@/components/algorithms/sortingAlgorithms/SortingVisualizer";
 import { bubbleSort } from "@/components/algorithms/sortingAlgorithms/bubbleSort";
 import { insertionSort } from "@/components/algorithms/sortingAlgorithms/insertionSort";
@@ -9,14 +11,18 @@ import { randomizedQuicksort } from "@/components/algorithms/sortingAlgorithms/r
 import { countingSort } from "@/components/algorithms/sortingAlgorithms/countingSort";
 import { radixSort } from "@/components/algorithms/sortingAlgorithms/radixSort";
 import { bucketSort } from "@/components/algorithms/sortingAlgorithms/bucketSort";
+
+// import other algorithms
 import BinarySearch from "@/components/algorithms/otherAlgorithms/BinarySearch";
+import RandomizedSelect from "@/components/algorithms/otherAlgorithms/RandomizedSelect";
+import Select from "@/components/algorithms/otherAlgorithms/Select";
 
 export default function Algorithms() {
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>([]);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
     null
   );
-  const [arrayLength, setArrayLength] = useState<number>(50);
+  const [arrayLength, setArrayLength] = useState<number>(100);
   const [initialArray, setInitialArray] = useState<number[]>([]);
 
   // Refs for sorting algorithms
@@ -33,7 +39,7 @@ export default function Algorithms() {
   const generateArray = (arrayLength: number) => {
     const array = Array.from(
       { length: arrayLength },
-      () => Math.floor(Math.random() * 300) + 10
+      () => Math.floor(Math.random() * 300) + 1
     );
     setInitialArray(array);
   };
@@ -44,7 +50,7 @@ export default function Algorithms() {
   }, [arrayLength]);
 
   // Handle selection of sorting algorithms
-  const handleAlgorithmSelection = (algorithm: string) => {
+  const handleSortingAlgorithmSelection = (algorithm: string) => {
     setSelectedAlgorithms((prevSelectedAlgorithms) =>
       prevSelectedAlgorithms.includes(algorithm)
         ? prevSelectedAlgorithms.filter((alg) => alg !== algorithm)
@@ -52,10 +58,10 @@ export default function Algorithms() {
     );
   };
 
-  // Handle selection of binary search algorithm
-  const handleBinarySearchSelection = () => {
+  // Handle selection of other algorithms
+  const handleOtherAlgorithmSelection = (algorithm: string) => {
     setSelectedAlgorithm((prevSelectedAlgorithm) =>
-      prevSelectedAlgorithm === "BinarySearch" ? null : "BinarySearch"
+      prevSelectedAlgorithm === algorithm ? null : algorithm
     );
   };
 
@@ -143,6 +149,19 @@ export default function Algorithms() {
     return <BinarySearch initialArray={initialArray} />;
   };
 
+  const renderSelectAlgorithm = () => {
+    switch (selectedAlgorithm) {
+      case "BinarySearch":
+        return <BinarySearch initialArray={initialArray} />;
+      case "Select":
+        return <Select initialArray={initialArray} />;
+      case "RandomizedSelect":
+        return <RandomizedSelect initialArray={initialArray} />;
+      default:
+        return null;
+    }
+  };
+
   const startAllSelectedAlgorithms = () => {
     bubbleSortRef.current?.start();
     insertionSortRef.current?.start();
@@ -161,7 +180,7 @@ export default function Algorithms() {
         <h2 className="text-xl font-semibold mb-2">Sorting Algorithms</h2>
         <div className="flex space-x-2 mb-4">
           <button
-            onClick={() => handleAlgorithmSelection("BubbleSort")}
+            onClick={() => handleSortingAlgorithmSelection("BubbleSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("BubbleSort")
                 ? "bg-blue-700"
@@ -171,7 +190,7 @@ export default function Algorithms() {
             Bubble Sort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("InsertionSort")}
+            onClick={() => handleSortingAlgorithmSelection("InsertionSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("InsertionSort")
                 ? "bg-red-700"
@@ -181,7 +200,7 @@ export default function Algorithms() {
             Insertion Sort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("MergeSort")}
+            onClick={() => handleSortingAlgorithmSelection("MergeSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("MergeSort")
                 ? "bg-green-700"
@@ -191,7 +210,7 @@ export default function Algorithms() {
             Merge Sort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("Quicksort")}
+            onClick={() => handleSortingAlgorithmSelection("Quicksort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("Quicksort")
                 ? "bg-purple-700"
@@ -201,7 +220,9 @@ export default function Algorithms() {
             Quicksort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("QuicksortRandomized")}
+            onClick={() =>
+              handleSortingAlgorithmSelection("QuicksortRandomized")
+            }
             className={`p-2 text-white ${
               selectedAlgorithms.includes("QuicksortRandomized")
                 ? "bg-yellow-700"
@@ -211,7 +232,7 @@ export default function Algorithms() {
             Randomized Quicksort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("CountingSort")}
+            onClick={() => handleSortingAlgorithmSelection("CountingSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("CountingSort")
                 ? "bg-orange-700"
@@ -221,7 +242,7 @@ export default function Algorithms() {
             Counting Sort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("RadixSort")}
+            onClick={() => handleSortingAlgorithmSelection("RadixSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("RadixSort")
                 ? "bg-indigo-700"
@@ -231,7 +252,7 @@ export default function Algorithms() {
             Radix Sort
           </button>
           <button
-            onClick={() => handleAlgorithmSelection("BucketSort")}
+            onClick={() => handleSortingAlgorithmSelection("BucketSort")}
             className={`p-2 text-white ${
               selectedAlgorithms.includes("BucketSort")
                 ? "bg-pink-700"
@@ -278,7 +299,7 @@ export default function Algorithms() {
         <h2 className="text-xl font-semibold mb-2">Other Algorithms</h2>
         <div className="flex space-x-2 mb-4">
           <button
-            onClick={handleBinarySearchSelection}
+            onClick={() => handleOtherAlgorithmSelection("BinarySearch")}
             className={`p-2 text-white ${
               selectedAlgorithm === "BinarySearch"
                 ? "bg-orange-700"
@@ -287,12 +308,26 @@ export default function Algorithms() {
           >
             Binary Search
           </button>
+          <button
+            onClick={() => handleOtherAlgorithmSelection("Select")}
+            className={`p-2 text-white ${
+              selectedAlgorithm === "Select" ? "bg-teal-700" : "bg-teal-500"
+            }`}
+          >
+            Select
+          </button>
+          <button
+            onClick={() => handleOtherAlgorithmSelection("RandomizedSelect")}
+            className={`p-2 text-white ${
+              selectedAlgorithm === "RandomizedSelect"
+                ? "bg-cyan-700"
+                : "bg-cyan-500"
+            }`}
+          >
+            Randomized Select
+          </button>
         </div>
-        {selectedAlgorithm === "BinarySearch" && (
-          <div className="flex justify-center items-center w-full">
-            {renderBinarySearch()}
-          </div>
-        )}
+        {renderSelectAlgorithm()}
       </div>
     </main>
   );
